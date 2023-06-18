@@ -56,7 +56,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','El area del profesional no debe estar vacío'];
         }
         else{
-            $respuesta = $profesionalesModel->updateProfesionales($_PUT->id,$_PUT->dni,$_PUT->lastname,$_PUT->name,$_PUT->profesion,$_PUT->area);
+            $respuesta = $profesionalesModel->updateProfesionales($_PUT->id,$_PUT->dni,$_PUT->name,$_PUT->lastname,$_PUT->profesion,$_PUT->area);
         }
         echo json_encode($respuesta);
     break;

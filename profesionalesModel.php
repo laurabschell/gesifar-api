@@ -35,7 +35,7 @@ class profesionalesModel{
             $valida = $this->validateProfesionales($DNI,$name,$lastname, $profesion, $area);
             $resultado=['error','Ya existe un profesional con los mismos datos'];
             if(count($valida)==0){
-                $sql="UPDATE profesionales SET DNI='$DNI',name='$name', lastname='$lastname',profesion='$profesion',area='$area' WHERE id='$id' ";
+                $sql="UPDATE profesionales SET DNI='$DNI', name= '$name', lastname='$lastname',profesion='$profesion',area='$area' WHERE id='$id' ";
                 mysqli_query($this->conexion,$sql);
                 $resultado=['success','Datos actualizados'];
             }
