@@ -6,8 +6,16 @@ class profesionalesModel{
         mysqli_set_charset($this->conexion,'utf8');
     }
 
-    public function getProfesionales($id=null){
-        $where = ($id == null) ? "" : " WHERE id='$id'";
+    public function getProfesionales($id=null,$search=null){
+        //$where = ($id == null) ? "" : " WHERE id='$id'";
+        $where = "";
+        if($id != null) {
+            $where = " WHERE id='$id'";
+        } elseif ($search != null) {
+            $where = " WHERE  name like '%$search%'
+            OR lastname like '%$search%'";
+        }
+
         $profesionales=[];
         $sql="SELECT * FROM profesionales ".$where;
         $registos = mysqli_query($this->conexion,$sql);

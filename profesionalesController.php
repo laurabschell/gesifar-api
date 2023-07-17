@@ -8,7 +8,18 @@ require 'profesionalesModel.php';
 $profesionalesModel= new profesionalesModel();
 switch($_SERVER['REQUEST_METHOD']){
     case 'GET':
-        $respuesta = (!isset($_GET['id'])) ? $profesionalesModel->getProfesionales() : $profesionalesModel->getProfesionales($_GET['id']);
+        /*$respuesta = (!isset($_GET['id'])) ? $profesionalesModel->getProfesionales() : $profesionalesModel->getProfesionales($_GET['id']);     */   
+        if(isset($_GET['id'])){
+            $respuesta = $profesionalesModel->getProfesionales($_GET['id']);
+        }
+        
+        elseif (isset($_GET['search'])){
+            $respuesta = $profesionalesModel->getProfesionales(null,$_GET['search']);
+        }
+        else {
+            $respuesta = $profesionalesModel->getProfesionales();
+        }
+
         echo json_encode($respuesta);
     break;
 
