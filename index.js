@@ -13,7 +13,7 @@ const credentials = {
 	host: 'localhost',
 	user: 'root',
 	password: '',
-	database: 'login'
+	database: 'gesifar-api'
 }
 
 app.get('/', (req, res) => {
