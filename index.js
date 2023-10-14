@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/login', (req, res) => {
-	const { email, password } = req.body
-	const values = [email, password]
+	const { email, password, name, lastname } = req.body
+	const values = [email, password, name, lastname ]
 	var connection = mysql.createConnection(credentials)
 	connection.query("SELECT * FROM usuarios WHERE email = ? AND password = ?", values, (err, result) => {
 		if (err) {
@@ -32,6 +32,8 @@ app.post('/api/login', (req, res) => {
 				res.status(200).send({
 					"id": result[0].id,
 					"email": result[0].email,
+					"name": result[0].name,
+					"lastname": result[0].lastname,
 					"role": result[0].role,
 				})
 			} else {
