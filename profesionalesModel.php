@@ -18,7 +18,7 @@ class profesionalesModel{
     }
 
     public function saveProfesionales($DNI,$name,$lastname, $profesion, $area){
-        $valida = $this->validateProfesionales($DNI,$name,$lastname, $profesion, $area);
+        $valida = $this->validateProfesionales(0,$DNI,$name,$lastname, $profesion, $area);
         $resultado=['error','Ya existe un profesional con los mismos datos'];
         if(count($valida)==0){
             $sql="INSERT INTO profesionales(DNI, name, lastname, profesion, area) VALUES('$DNI','$name','$lastname', '$profesion', '$area')";
@@ -32,7 +32,7 @@ class profesionalesModel{
         $existe= $this->getProfesionales($id);
         $resultado=['error','No existe un profesional con el id '.$id];
         if(count($existe)>0){
-            $valida = $this->validateProfesionales($DNI,$name,$lastname, $profesion, $area);
+            $valida = $this->validateProfesionales($id,$DNI,$name,$lastname, $profesion, $area);
             $resultado=['error','Ya existe un profesional con los mismos datos'];
             if(count($valida)==0){
                 $sql="UPDATE profesionales SET DNI='$DNI', name= '$name', lastname='$lastname',profesion='$profesion',area='$area' WHERE id='$id' ";
@@ -54,11 +54,12 @@ class profesionalesModel{
         return $resultado;
     }
     
-    public function validateProfesionales($DNI,$name,$lastname, $profesion, $area){
+    public function validateProfesionales($id,$DNI,$name,$lastname, $profesion, $area){
         $profesionales=[];
         $sql="SELECT * FROM profesionales WHERE DNI='$DNI' AND name='$name' AND lastname='$lastname' AND profesion='$profesion' AND area='$area' ";
-        $registos = mysqli_query($this->conexion,$sql);
-        while($row = mysqli_fetch_assoc($registos)){
+        $sql.= " AND id<>'$id'";
+        $registros = mysqli_query($this->conexion,$sql);
+        while($row = mysqli_fetch_assoc($registros)){
             array_push($profesionales,$row);
         }
         return $profesionales;

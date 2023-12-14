@@ -6,7 +6,7 @@ header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 header('content-type: application/json; charset=utf-8');
 require 'materialesModel.php';
 $materialesModel= new materialesModel();
-switch($_SERVER['REQUEST_METHOD']){
+switch($_SERVER['REQUEST_METHOD']){ 
     case 'GET':
         $respuesta = (!isset($_GET['id'])) ? $materialesModel->getMateriales() : $materialesModel->getMateriales($_GET['id']);
         echo json_encode($respuesta);
