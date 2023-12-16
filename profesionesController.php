@@ -8,7 +8,7 @@ require 'profesionesModel.php';
 $profesionesModel= new profesionesModel();
 switch($_SERVER['REQUEST_METHOD']){ 
     case 'GET':
-        $respuesta = (!isset($_GET['id'])) ? $profesionesModel->getprofesiones() : $profesionesModel->getprofesiones($_GET['id']);
+        $respuesta = (!isset($_GET['id'])) ? $profesionesModel->getprofesiones() : $profesionesModel->getProfesiones($_GET['id']);
         echo json_encode($respuesta);
     break;
 

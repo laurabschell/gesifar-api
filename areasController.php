@@ -8,7 +8,7 @@ require 'areasModel.php';
 $areasModel= new areasModel();
 switch($_SERVER['REQUEST_METHOD']){ 
     case 'GET':
-        $respuesta = (!isset($_GET['id'])) ? $areasModel->getareas() : $areasModel->getareas($_GET['id']);
+        $respuesta = (!isset($_GET['id'])) ? $areasModel->getareas() : $areasModel->getAreas($_GET['id']);
         echo json_encode($respuesta);
     break;
 
