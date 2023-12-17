@@ -14,8 +14,11 @@ switch($_SERVER['REQUEST_METHOD']){
 
     case 'POST':
         $_POST= json_decode(file_get_contents('php://input',true));
-        if(!isset($_POST->tipo) || is_null($_POST->tipo) || empty(trim($_POST->tipo))){
-            $respuesta= ['error','Debe indicar el tipo de material '];
+        if(!isset($_POST->nombre) || is_null($_POST->nombre) || empty(trim($_POST->nombre))){
+            $respuesta= ['error','Debe indicar el Nombre del Material '];
+        }
+        else if(!isset($_POST->tipo) || is_null($_POST->tipo) || empty(trim($_POST->tipo))){
+            $respuesta= ['error','Debe indicar el Tipo de material '];
         }
         else if(!isset($_POST->forma) || is_null($_POST->forma) || empty(trim($_POST->forma)) ){
             $respuesta= ['error','Debe indicar la Forma Farmaceutica'];
@@ -30,7 +33,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','La Fecha de Vencimiento debe ser mayor a hoy'];
         }*/
         else{
-            $respuesta = $materialesModel->saveMateriales($_POST->tipo, $_POST->forma,$_POST->presentacion,$_POST->fecha_venc);
+            $respuesta = $materialesModel->saveMateriales($_POST->nombre, $_POST->tipo, $_POST->forma,$_POST->presentacion,$_POST->fecha_venc);
         }
         echo json_encode($respuesta);
     break;
@@ -39,6 +42,9 @@ switch($_SERVER['REQUEST_METHOD']){
         $_PUT= json_decode(file_get_contents('php://input',true));
         if(!isset($_PUT->id) || is_null($_PUT->id) || empty(trim($_PUT->id))){
             $respuesta= ['error','El ID del Material no debe estar vacío'];
+        }
+        else if(!isset($_PUT->nombre) || is_null($_PUT->nombre) || empty(trim($_PUT->nombre))){
+            $respuesta= ['error','Debe indicar el Nombre del Material'];
         }
         else if(!isset($_PUT->tipo) || is_null($_PUT->tipo) || empty(trim($_PUT->tipo))){
             $respuesta= ['error','Debe indicar el Tipo de Material'];
@@ -53,7 +59,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','Debe indicar la Fecha de Vencimiento'];
         }
         else{
-            $respuesta = $materialesModel->updateMateriales($_PUT->id,$_PUT->tipo,$_PUT->forma,$_PUT->presentacion,$_PUT->fecha_venc);
+            $respuesta = $materialesModel->updateMateriales($_PUT->id, $_PUT->nombre, $_PUT->tipo, $_PUT->forma, $_PUT->presentacion,$_PUT->fecha_venc);
         }
         echo json_encode($respuesta);
     break;

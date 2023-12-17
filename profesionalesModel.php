@@ -18,7 +18,7 @@ class profesionalesModel{
     }
 
     public function saveProfesionales($DNI,$nombre,$apellido, $profesion, $area){
-        $valida = $this->validateProfesionales(0,$DNI,$name,$lastname, $profesion, $area);
+        $valida = $this->validateProfesionales(0,$DNI,$nombre,$apellido, $profesion, $area);
         $resultado=['error','Ya existe un profesional con los mismos datos'];
         if(count($valida)==0){
             $sql="INSERT INTO profesionales(DNI, nombre, apellido, profesion, area) VALUES('$DNI','$nombre','$apellido', '$profesion', '$area')";
@@ -54,7 +54,7 @@ class profesionalesModel{
         return $resultado;
     }
     
-    public function validateProfesionales($id,$DNI,$name,$lastname, $profesion, $area){
+    public function validateProfesionales($id, $DNI, $nombre, $apellido, $profesion, $area){
         $profesionales=[];
         $sql="SELECT * FROM profesionales WHERE DNI='$DNI' AND nombre='$nombre' AND apellido='$apellido' AND profesion='$profesion' AND area='$area' ";
         $sql.= " AND id<>'$id'";

@@ -4,24 +4,24 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 header('content-type: application/json; charset=utf-8');
-require 'personasModel.php';
-$personasModel= new personasModel();
+require 'responsablesModel.php';
+$responsablesModel= new responsablesModel();
 switch($_SERVER['REQUEST_METHOD']){
     case 'GET':
-        $respuesta = (!isset($_GET['id'])) ? $personasModel->getPersonas() : $personasModel->getPersonas($_GET['id']);
+        $respuesta = (!isset($_GET['id'])) ? $responsablesModel->getresponsables() : $responsablesModel->getresponsables($_GET['id']);
         echo json_encode($respuesta);
     break;
 
     case 'POST':
         $_POST= json_decode(file_get_contents('php://input',true));
-        if(!isset($_POST->name) || is_null($_POST->name) || empty(trim($_POST->name)) || strlen($_POST->name) > 150){
+        if(!isset($_POST->name) || is_null($_POST->nombre) || empty(trim($_POST->name)) || strlen($_POST->nombre) > 150){
             $respuesta= ['error','El nombre del personal no debe estar vacío'];
         }
-        else if(!isset($_POST->lastname) || is_null($_POST->lastname) || empty(trim($_POST->lastname)) || strlen($_POST->lastname) > 150){
+        else if(!isset($_POST->apellido) || is_null($_POST->apellido) || empty(trim($_POST->apellido)) || strlen($_POST->apellido) > 150){
             $respuesta= ['error','El apellido del personal no debe estar vacío'];
         }
         else{
-            $respuesta = $personalModel->savePersonas($_POST->name,$_POST->lastname);
+            $respuesta = $personalModel->saveResponsables($_POST->name,$_POST->lastname);
         }
         echo json_encode($respuesta);
     break;

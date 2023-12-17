@@ -10,9 +10,6 @@ class solicitudesModel{
         $where = ($id == null) ? "" : " WHERE id='$id'";
         $solicitudes=[];
         $sql="SELECT * FROM solicitudes ".$where;
-        //SELECT DATE_FORMAT("2017-06-15", "%M %d %Y");
-        //$sql="SELECT id, tipo, forma, presentacion, DATE_FORMAT(fecha_venc, '%Y-%m-%d') FROM solicitudes ".$where;
-        
         $registos = mysqli_query($this->conexion,$sql);
         while($row = mysqli_fetch_assoc($registos)){
             array_push($solicitudes,$row);
@@ -20,15 +17,20 @@ class solicitudesModel{
         return $solicitudes;
     }
 
-    public function saveSolicitudes($persona, $profesional, $area, $fecha, $estado){
-        $valida = $this->validateSolicitudes($persona,$profesional,$area, $fecha, $estado);
+    public function saveSolicitudes($responsable, $profesional, $area, $fecha, $estado, $rows){
+        $valida = $this->validateSolicitudes($responsable, $profesional, $area, $fecha, $estado);
+
         $resultado=['error','Ya existe un material con los mismos datos'];
+        
+        $json = json_encode($rows);  
+        
+        $resultado=['error',$json];
+        
         if(count($valida)==0){
-            $sql="INSERT INTO solicitudes(personal_resp, profesional_solicitante, area, fecha, estado) 
-            VALUES('$persona','$profesional','$area', '$fecha', '$estado')";
             
+            $sql="call saveSolicitud('$responsable','$profesional','$area', '$fecha', '$estado','$json')";
             mysqli_query($this->conexion,$sql);
-            $resultado=['success','Registro exitoso'];
+            $resultado=['success','Registro exitoso '];
         }
         return $resultado;
     }

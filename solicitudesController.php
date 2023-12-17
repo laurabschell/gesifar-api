@@ -18,7 +18,8 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','Debe indicar la Fecha'];
         }
         else{
-            $respuesta = $solicitudesModel->saveSolicitudes($_POST->persona, $_POST->profesional,$_POST->area, $_POST->fecha, $_POST->estado );
+            $respuesta = $solicitudesModel->saveSolicitudes($_POST->responsable, $_POST->profesional,$_POST->area, $_POST->fecha, $_POST->estado,
+                $_POST->rows);
         }
         echo json_encode($respuesta);
     break;
