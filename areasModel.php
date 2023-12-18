@@ -6,7 +6,7 @@ class areasModel{
         mysqli_set_charset($this->conexion,'utf8');
     }
 
-    public function getareas($id=null){
+    public function getAreas($id=null){
         $where = ($id == null) ? "" : " WHERE id='$id'";
         $areas=[];
         $sql="SELECT * FROM areas ".$where;

@@ -17,10 +17,10 @@ switch($_SERVER['REQUEST_METHOD']){
         if(!isset($_POST->dni) || is_null($_POST->dni) || empty(trim($_POST->dni)) || strlen($_POST->dni) > 80){
             $respuesta= ['error','El dni del profesional no debe estar vacío'];
         }
-        else if(!isset($_POST->name) || is_null($_POST->name) || empty(trim($_POST->name)) || strlen($_POST->name) > 150){
+        else if(!isset($_POST->nombre) || is_null($_POST->nombre) || empty(trim($_POST->nombre)) || strlen($_POST->nombre) > 150){
             $respuesta= ['error','El nombre del profesional no debe estar vacío'];
         }
-        else if(!isset($_POST->lastname) || is_null($_POST->lastname) || empty(trim($_POST->lastname)) || strlen($_POST->lastname) > 150){
+        else if(!isset($_POST->apellido) || is_null($_POST->apellido) || empty(trim($_POST->apellido)) || strlen($_POST->apellido) > 150){
             $respuesta= ['error','El apellido del profesional no debe estar vacío'];
         }
         else if(!isset($_POST->profesion) || is_null($_POST->profesion) || empty(trim($_POST->profesion)) || strlen($_POST->profesion) > 150){
@@ -30,7 +30,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','El area del profesional no debe estar vacío'];
         }
         else{
-            $respuesta = $profesionalesModel->saveProfesionales($_POST->dni, $_POST->name,$_POST->lastname,$_POST->profesion,$_POST->area);
+            $respuesta = $profesionalesModel->saveProfesionales($_POST->dni, $_POST->nombre,$_POST->apellido,$_POST->profesion,$_POST->area);
         }
         echo json_encode($respuesta);
     break;
@@ -43,10 +43,10 @@ switch($_SERVER['REQUEST_METHOD']){
         else if(!isset($_PUT->dni) || is_null($_PUT->dni) || empty(trim($_PUT->dni))){
             $respuesta= ['error','El dni del profesional no debe estar vacío'];
         }
-        else if(!isset($_PUT->name) || is_null($_PUT->name) || empty(trim($_PUT->name)) || strlen($_PUT->name) > 80){
+        else if(!isset($_PUT->nombre) || is_null($_PUT->nombre) || empty(trim($_PUT->nombre)) || strlen($_PUT->nombre) > 80){
             $respuesta= ['error','El nombre del profesional no debe estar vacío'];
         }
-        else if(!isset($_PUT->lastname) || is_null($_PUT->lastname) || empty(trim($_PUT->lastname)) || strlen($_PUT->lastname) > 80){
+        else if(!isset($_PUT->apellido) || is_null($_PUT->apellido) || empty(trim($_PUT->apellido)) || strlen($_PUT->apellido) > 80){
             $respuesta= ['error','El apellido del profesional no debe estar vacío'];
         }
         else if(!isset($_PUT->profesion) || is_null($_PUT->profesion) || empty(trim($_PUT->profesion)) || strlen($_PUT->profesion) > 150){
@@ -56,7 +56,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','El area del profesional no debe estar vacío'];
         }
         else{
-            $respuesta = $profesionalesModel->updateProfesionales($_PUT->id,$_PUT->dni,$_PUT->name,$_PUT->lastname,$_PUT->profesion,$_PUT->area);
+            $respuesta = $profesionalesModel->updateProfesionales($_PUT->id,$_PUT->dni,$_PUT->nombre,$_PUT->apellido,$_PUT->profesion,$_PUT->area);
         }
         echo json_encode($respuesta);
     break;
