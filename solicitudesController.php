@@ -43,8 +43,11 @@ switch($_SERVER['REQUEST_METHOD']){
         else if(!isset($_PUT->estado) || is_null($_PUT->estado) || empty(trim($_PUT->estado))){
             $respuesta= ['error','Debe indicar la estado'];
         }
+        else if(!isset($_PUT->json) || is_null($_PUT->json) || empty(trim($_PUT->json))){
+            $respuesta= ['error','Debe indicar la json'];
+        }
         else{
-            $respuesta = $solicitudesModel->updateSolicitudes($_PUT->id,$_PUT->$responsable,$_PUT->profesional,$_PUT->area,$_PUT->fecha,$_PUT->estado);
+            $respuesta = $solicitudesModel->updateSolicitudes($_PUT->id,$_PUT->$responsable,$_PUT->profesional,$_PUT->area,$_PUT->fecha,$_PUT->estado, $_PUT->json);
         }
         echo json_encode($respuesta);
     break;
