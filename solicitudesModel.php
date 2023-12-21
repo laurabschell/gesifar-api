@@ -47,6 +47,22 @@ class solicitudesModel{
         }
         return $resultado;
     }
+
+    public function updateSolicitudes($responsable,$profesional,$area, $fecha, $estado,$json){
+        $existe= $this->getSolicitudes($id);
+        $resultado=['error','No existe un solicitud con el id '.$id];
+        if(count($existe)>0){
+            $valida = $this->validateSolicitudes('$responsable','$profesional','$area', '$fecha', '$estado','$json');
+            $resultado=['error','Ya existe un material con los mismos datos'];
+            if(count($valida)==0){
+                $sql="UPDATE solicitudes SET responsable='$responsable',profesional='$profesional', area= '$area', fecha='$fecha',estado='$estado' ,json='$json'
+                    WHERE id='$id' ";
+                mysqli_query($this->conexion,$sql);
+                $resultado=['success','Datos actualizados'];
+            }
+        }
+        return $resultado;
+    }
     
     public function validateSolicitudes($persona, $profesional, $area, $fecha, $estado){
         $solicitudes=[];
