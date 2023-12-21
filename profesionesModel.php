@@ -6,7 +6,7 @@ class profesionesModel{
         mysqli_set_charset($this->conexion,'utf8');
     }
 
-    public function getprofesiones($id=null){
+    public function getProfesiones($id=null){
         $where = ($id == null) ? "" : " WHERE id='$id'";
         $profesiones=[];
         $sql="SELECT * FROM profesiones ".$where;
