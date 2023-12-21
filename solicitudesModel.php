@@ -43,7 +43,7 @@ class solicitudesModel{
             $sql="DELETE FROM solicitudes 
             WHERE id='$id' ";
             mysqli_query($this->conexion,$sql);
-            $resultado=['success','Material eliminado'];
+            $resultado=['success','Solicitud eliminada'];
         }
         return $resultado;
     }
