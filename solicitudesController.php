@@ -18,8 +18,7 @@ switch($_SERVER['REQUEST_METHOD']){
             $respuesta= ['error','Debe indicar la Fecha'];
         }
         else{
-            $respuesta = $solicitudesModel->saveSolicitudes($_POST->responsable, $_POST->profesional,$_POST->area, $_POST->fecha, $_POST->estado,
-                $_POST->rows);
+            $respuesta = $solicitudesModel->saveSolicitudes($_POST->responsable, $_POST->profesional,$_POST->area, $_POST->fecha, $_POST->estado,$_POST->rows );
         }
         echo json_encode($respuesta);
     break;
@@ -27,22 +26,28 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'PUT':
         $_PUT= json_decode(file_get_contents('php://input',true));
         if(!isset($_PUT->id) || is_null($_PUT->id) || empty(trim($_PUT->id))){
-            $respuesta= ['error','El ID del Material no debe estar vacío'];
+            $respuesta= ['error','El ID no debe estar vacío'];
         }
-        else if(!isset($_PUT->tipo) || is_null($_PUT->tipo) || empty(trim($_PUT->tipo))){
-            $respuesta= ['error','Debe indicar el Tipo de Material'];
+        else if(!isset($_PUT->responsable) || is_null($_PUT->responsable) || empty(trim($_PUT->responsable))){
+            $respuesta= ['error','Debe indicar el responsable'];
         }
-        else if(!isset($_PUT->forma) || is_null($_PUT->forma) || empty(trim($_PUT->forma)) || strlen($_PUT->forma) > 80){
-            $respuesta= ['error','Debe indicar la Forma Farmaceutica'];
+        else if(!isset($_PUT->profesional) || is_null($_PUT->profesional) || empty(trim($_PUT->profesional))){
+            $respuesta= ['error','Debe indicar la profesional'];
         }
-        else if(!isset($_PUT->presentacion) || is_null($_PUT->presentacion) || empty(trim($_PUT->presentacion))){
-            $respuesta= ['error','Debe indicar la Presentacion'];
+        else if(!isset($_PUT->area) || is_null($_PUT->area) || empty(trim($_PUT->area))){
+            $respuesta= ['error','Debe indicar la area'];
         }
-        else if(!isset($_PUT->fecha_venc) || is_null($_PUT->fecha_venc) || empty(trim($_PUT->fecha_venc)) || strlen($_PUT->fecha_venc) > 200){
+        else if(!isset($_PUT->fecha) || is_null($_PUT->fecha) || empty(trim($_PUT->fecha))){
             $respuesta= ['error','Debe indicar la Fecha de Vencimiento'];
         }
+        else if(!isset($_PUT->estado) || is_null($_PUT->estado) || empty(trim($_PUT->estado))){
+            $respuesta= ['error','Debe indicar la estado'];
+        }
+        else if(!isset($_PUT->json) || is_null($_PUT->json) || empty(trim($_PUT->json))){
+            $respuesta= ['error','Debe indicar la json'];
+        }
         else{
-            $respuesta = $solicitudesModel->updateSolicitudes($_PUT->id,$_PUT->tipo,$_PUT->forma,$_PUT->presentacion,$_PUT->fecha_venc);
+            $respuesta = $solicitudesModel->updateSolicitudes($_PUT->id,$_PUT->$responsable,$_PUT->profesional,$_PUT->area,$_PUT->fecha,$_PUT->estado, $_PUT->json);
         }
         echo json_encode($respuesta);
     break;
@@ -50,7 +55,7 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'DELETE';
         $_DELETE= json_decode(file_get_contents('php://input',true));
         if(!isset($_DELETE->id) || is_null($_DELETE->id) || empty(trim($_DELETE->id))){
-            $respuesta= ['error','El ID del material no debe estar vacío'];
+            $respuesta= ['error','El ID de la solicitud no debe estar vacío'];
         }
         else{
             $respuesta = $solicitudesModel->deleteSolicitudes($_DELETE->id);
