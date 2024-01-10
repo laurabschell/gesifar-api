@@ -38,10 +38,10 @@ switch($_SERVER['REQUEST_METHOD']){
     case 'PUT':
         $_PUT= json_decode(file_get_contents('php://input',true));
         if(!isset($_PUT->id) || is_null($_PUT->id) || empty(trim($_PUT->id))){
-            $respuesta= ['error','El ID del producto no debe estar vacío'];
+            $respuesta= ['error','El ID del profesional no debe estar vacío'];
         }
         else if(!isset($_PUT->dni) || is_null($_PUT->dni) || empty(trim($_PUT->dni))){
-            $respuesta= ['error','El dni del profesional no debe estar vacío'];
+            $respuesta= ['error','El DNI del profesional no debe estar vacío'];
         }
         else if(!isset($_PUT->nombre) || is_null($_PUT->nombre) || empty(trim($_PUT->nombre)) || strlen($_PUT->nombre) > 80){
             $respuesta= ['error','El nombre del profesional no debe estar vacío'];
