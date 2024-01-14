@@ -54,7 +54,6 @@ class responsablesModel{
         return $resultado;
     }
 
-    /*public function validateResponsables($id, $DNI, $nombre, $apellido, $telefono, $direccion, $turno){*/
     public function validateResponsables($id, $nombre, $apellido){
         
         $responsables=[];
