@@ -9,7 +9,18 @@ class solicitudesModel{
     public function getSolicitudes($id=null){
         $where = ($id == null) ? "" : " WHERE id='$id'";
         $solicitudes=[];
-        $sql="SELECT * FROM solicitudes ".$where;
+        // $sql="SELECT * FROM solicitudes ".$where;
+
+        $sql="SELECT s.*, 
+        (
+            SELECT GROUP_CONCAT(CONCAT(d.material, ' - ', d.cantidad) SEPARATOR ' ; ') 
+            FROM detalle_solicitud d
+            WHERE  d.id_solicitud=s.id
+            GROUP BY id_solicitud
+        ) AS detalle
+        FROM solicitudes s".$where;
+        
+
         $registos = mysqli_query($this->conexion,$sql);
         while($row = mysqli_fetch_assoc($registos)){
             array_push($solicitudes,$row);

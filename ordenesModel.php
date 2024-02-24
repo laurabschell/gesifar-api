@@ -9,7 +9,18 @@ class ordenesModel{
     public function getOrdenes($id=null){
         $where = ($id == null) ? "" : " WHERE id='$id'";
         $ordenes=[];
-        $sql="SELECT * FROM ordenes ".$where;
+        // $sql="SELECT * FROM ordenes ".$where;
+
+        $sql="SELECT o.*, 
+        (
+            SELECT GROUP_CONCAT(CONCAT(d.material, ' - ', d.cantidad) SEPARATOR ' ; ') 
+            FROM detalle_orden d
+            WHERE  d.id_orden=o.id
+            GROUP BY id_orden
+        ) AS detalle
+        FROM ordenes o".$where;
+        
+
         $registros = mysqli_query($this->conexion,$sql);
         while($row = mysqli_fetch_assoc($registros)){
             array_push($ordenes,$row);
